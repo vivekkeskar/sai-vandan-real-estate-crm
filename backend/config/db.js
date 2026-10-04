@@ -9,7 +9,11 @@ const connectDB = async () => {
 
     if (!dbUrl) {
       console.log('No MONGODB_URI provided. Starting in-memory MongoDB Server for instant demo...');
-      mongoServer = await MongoMemoryServer.create();
+      mongoServer = await MongoMemoryServer.create({
+        binary: {
+          version: process.env.MONGOMS_VERSION || '7.0.3'
+        }
+      });
       dbUrl = mongoServer.getUri();
     }
 
